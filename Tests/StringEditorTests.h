@@ -1,7 +1,7 @@
 #pragma once
 #include "gtest/gtest.h"
-#include "../StringEditor.h"
-#include "../Commands.h"
+#include "../TextEditorLib/StringEditor.h"
+#include "../TextEditorLib/Commands.h"
 
 
 TEST(StringEditor, OrdinaryCommands){

@@ -1,6 +1,6 @@
 #pragma once
 #include "gtest/gtest.h"
-#include "../CommandListExecutor.h"
+#include "../TextEditorLib/CommandListExecutor.h"
 
 TEST(CommandListExecutor, averageData){
     auto str = StringBuffer("12345");

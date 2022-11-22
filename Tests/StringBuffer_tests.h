@@ -1,6 +1,6 @@
 #pragma once
 #include "gtest/gtest.h"
-#include "../StringBuffer.h"
+#include "../TextEditorLib/StringBuffer.h"
 
 TEST(StringBuffer, constructor){
     ASSERT_NO_THROW( StringBuffer("some types") );

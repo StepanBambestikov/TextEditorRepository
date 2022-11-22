@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Parser.h"
+#include "../TextEditorLib/Parser.h"
 #include "gtest/gtest.h"
 #include <sstream>
 

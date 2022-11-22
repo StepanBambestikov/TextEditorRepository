@@ -1,5 +1,5 @@
 #pragma once
-#include "../Commands.h"
+#include "../TextEditorLib/Commands.h"
 #include "gtest/gtest.h"
 
 TEST(Delete, constructor){
