@@ -498,20 +498,6 @@ cxxabi.h
 acxx_demangle.h
 -
 
-C:/Users/Admin/CLionProjects/TextEditor/CommandCreator.h
-CommandInterface.h
-C:/Users/Admin/CLionProjects/TextEditor/CommandInterface.h
-
-C:/Users/Admin/CLionProjects/TextEditor/CommandInterface.h
-memory
--
-StringBuffer.h
-C:/Users/Admin/CLionProjects/TextEditor/StringBuffer.h
-
-C:/Users/Admin/CLionProjects/TextEditor/CommandListExecutor.cpp
-CommandListExecutor.h
-C:/Users/Admin/CLionProjects/TextEditor/CommandListExecutor.h
-
 C:/Users/Admin/CLionProjects/TextEditor/CommandListExecutor.h
 StringEditor.h
 C:/Users/Admin/CLionProjects/TextEditor/StringEditor.h
@@ -522,18 +508,6 @@ C:/Users/Admin/CLionProjects/TextEditor/StringBuffer.h
 Creators.h
 C:/Users/Admin/CLionProjects/TextEditor/Creators.h
 
-C:/Users/Admin/CLionProjects/TextEditor/Copy.h
-CommandInterface.h
-C:/Users/Admin/CLionProjects/TextEditor/CommandInterface.h
-
-C:/Users/Admin/CLionProjects/TextEditor/CopyCreator.h
-CommandCreator.h
-C:/Users/Admin/CLionProjects/TextEditor/CommandCreator.h
-Copy.h
-C:/Users/Admin/CLionProjects/TextEditor/Copy.h
-array
--
-
 C:/Users/Admin/CLionProjects/TextEditor/Creators.h
 CopyCreator.h
 C:/Users/Admin/CLionProjects/TextEditor/CopyCreator.h
@@ -543,32 +517,6 @@ InsertCreator.h
 C:/Users/Admin/CLionProjects/TextEditor/InsertCreator.h
 DeleteCreator.h
 C:/Users/Admin/CLionProjects/TextEditor/DeleteCreator.h
-
-C:/Users/Admin/CLionProjects/TextEditor/Delete.h
-CommandInterface.h
-C:/Users/Admin/CLionProjects/TextEditor/CommandInterface.h
-
-C:/Users/Admin/CLionProjects/TextEditor/DeleteCreator.h
-CommandCreator.h
-C:/Users/Admin/CLionProjects/TextEditor/CommandCreator.h
-Delete.h
-C:/Users/Admin/CLionProjects/TextEditor/Delete.h
-array
--
-
-C:/Users/Admin/CLionProjects/TextEditor/Exceptions.h
-exception
--
-
-C:/Users/Admin/CLionProjects/TextEditor/Insert.h
-CommandInterface.h
-C:/Users/Admin/CLionProjects/TextEditor/CommandInterface.h
-
-C:/Users/Admin/CLionProjects/TextEditor/InsertCreator.h
-CommandCreator.h
-C:/Users/Admin/CLionProjects/TextEditor/CommandCreator.h
-Insert.h
-C:/Users/Admin/CLionProjects/TextEditor/Insert.h
 
 C:/Users/Admin/CLionProjects/TextEditor/Parser.h
 sstream
@@ -581,16 +529,6 @@ optional
 -
 vector
 -
-
-C:/Users/Admin/CLionProjects/TextEditor/Paste.h
-CommandInterface.h
-C:/Users/Admin/CLionProjects/TextEditor/CommandInterface.h
-
-C:/Users/Admin/CLionProjects/TextEditor/PasteCreator.h
-CommandCreator.h
-C:/Users/Admin/CLionProjects/TextEditor/CommandCreator.h
-Paste.h
-C:/Users/Admin/CLionProjects/TextEditor/Paste.h
 
 C:/Users/Admin/CLionProjects/TextEditor/StringBuffer.h
 string
@@ -615,8 +553,6 @@ C:/Users/Admin/CLionProjects/TextEditor/Tests/gtest/gtest.h
 C:/Users/Admin/CLionProjects/TextEditor/CommandListExecutor.h
 
 C:/Users/Admin/CLionProjects/TextEditor/main.cpp
-iostream
--
 Parser_tests.h
 C:/Users/Admin/CLionProjects/TextEditor/Parser_tests.h
 StringBuffer_tests.h
