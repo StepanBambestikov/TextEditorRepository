@@ -1,0 +1,8 @@
+//
+// Created by Admin on 01.12.2022.
+//
+
+#ifndef TEXTEDITOR_COMMANDDTO_H
+#define TEXTEDITOR_COMMANDDTO_H
+
+#endif //TEXTEDITOR_COMMANDDTO_H

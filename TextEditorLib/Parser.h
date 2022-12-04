@@ -1,16 +1,8 @@
-#pragma once
-#include <sstream>
-#include <istream>
-#include <string>
-#include <optional>
-#include <vector>
+//
+// Created by Admin on 03.12.2022.
+//
 
-class Parser final{
-public:
-    explicit Parser(std::istream& _is) noexcept;
-    std::optional<std::vector<std::string>> getSplitString() noexcept;
-    [[nodiscard]] bool eof() const noexcept;
-private:
-    std::istream& is;
-};
+#ifndef TEXTEDITOR_PARSER_H
+#define TEXTEDITOR_PARSER_H
 
+#endif //TEXTEDITOR_PARSER_H

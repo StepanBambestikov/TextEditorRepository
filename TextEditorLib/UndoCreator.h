@@ -1,0 +1,8 @@
+//
+// Created by Admin on 03.12.2022.
+//
+
+#ifndef TEXTEDITOR_UNDOCREATOR_H
+#define TEXTEDITOR_UNDOCREATOR_H
+
+#endif //TEXTEDITOR_UNDOCREATOR_H
