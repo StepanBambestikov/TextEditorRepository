@@ -1,8 +1,15 @@
-//
-// Created by Admin on 03.12.2022.
-//
+#pragma once
+#include <sstream>
+#include <istream>
+#include <string>
+#include "InputStream.h"
 
-#ifndef TEXTEDITOR_PARSER_H
-#define TEXTEDITOR_PARSER_H
 
-#endif //TEXTEDITOR_PARSER_H
+class Parser final{
+public:
+    explicit Parser(InputStream& _is) noexcept;
+    InputStream getStringStream() noexcept;
+    [[nodiscard]] bool eof() const noexcept;
+private:
+    InputStream& is;
+};

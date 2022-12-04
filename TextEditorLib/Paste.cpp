@@ -1,24 +1,15 @@
-#pragma once
 #include "Paste.h"
 
-Paste::Paste(std::shared_ptr<StringBuffer> _str, std::shared_ptr<StringBuffer> _buffer, size_t _position) : CommandInterface(std::move(_str)){
-    if (_position > strBuf->size()){
-        throw IncorrectArgumentsInPasteRedo();
-    }
+Paste::Paste(size_t _position) {
     position = _position;
+}
+
+void Paste::redo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer){
+    str->pasteInPosition(position, *_buffer);
     len = _buffer->size();
-    bufferPtr = std::move(_buffer);
 }
 
-void Paste::redo(){
-    strBuf->pasteInPosition(position, *bufferPtr);
-    len = bufferPtr->size();
-}
-
-void Paste::undo(){
-    if (len < position){
-        return;
-    }
-    strBuf->deleteStringInRange(position, len + position);
+void Paste::undo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer){
+    str->deleteStringInRange(position, len + position);
 }
 

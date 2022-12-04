@@ -1,8 +1,8 @@
-#include "CommandProvider.h"
+#include "CommandProviderFromCreator.h"
 
-CommandProvider::CommandProvider(std::shared_ptr<CreatorProvider> _provider) : provider(_provider) {}
+CommandProviderFromCreator::CommandProviderFromCreator(std::unique_ptr<CreatorProvider> _provider) : provider(std::move(_provider)) {}
 
-std::unique_ptr<CommandInterface> CommandProvider::getCommand(){
+std::unique_ptr<CommandInterface> CommandProviderFromCreator::getCommand(){
     if (!provider->hasNext()){
         return{};
     }
@@ -13,6 +13,6 @@ std::unique_ptr<CommandInterface> CommandProvider::getCommand(){
     return {};
 }
 
-bool CommandProvider::hasNext() const{
+bool CommandProviderFromCreator::hasNext() const{
     return provider->hasNext();
 }

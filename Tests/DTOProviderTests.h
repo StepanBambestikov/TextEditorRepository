@@ -1,11 +1,10 @@
 #pragma once
 #include "gtest/gtest.h"
-#include "../TextEditorLib/DTOProvider.h"
+#include "../TextEditorLib/DTOProviderFromParser.h"
 
 TEST(DTOProvider, AverageStream){
     InputStream stream(std::make_unique<std::stringstream>("insert _insert_me_ 2\nundo\n   delete 1 2 \n paste 1\n copy 1 2\nerror\n"));
-    Parser p(stream);
-    auto provider = DTOProvider(std::make_shared<Parser>(p));
+    auto provider = DTOProviderFromParser(std::make_unique<Parser>(stream));
     auto ptr = provider.getDTO();
     ASSERT_TRUE(ptr);
     InsertDTO* inDTO = dynamic_cast<InsertDTO*>(ptr.get());

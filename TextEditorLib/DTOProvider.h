@@ -1,8 +1,11 @@
-//
-// Created by Admin on 03.12.2022.
-//
+#pragma once
+#include "CommandDTO.h"
+#include "memory"
 
-#ifndef TEXTEDITOR_DTOPROVIDER_H
-#define TEXTEDITOR_DTOPROVIDER_H
-
-#endif //TEXTEDITOR_DTOPROVIDER_H
+class DTOProvider {
+public:
+    DTOProvider() = default;
+    virtual ~DTOProvider() = default;
+    virtual std::unique_ptr<CommandDTO> getDTO() = 0;
+    virtual bool hasNext() const = 0;
+};

@@ -1,7 +1,7 @@
 #include "Exceptions.h"
 
 const char* IncorrectArgumentsGetStringInRange::what() const noexcept {
-    return "Incorrect arguments for member getStringInRange(begin, end) ";
+    return "Incorrect arguments for member getSubStringInRange(begin, end) ";
 }
 
 const char* IncorrectArgumentsPasteInPosition::what() const noexcept {
@@ -21,7 +21,7 @@ const char* IncorrectArgumentsInPasteRedo::what() const noexcept {
 }
 
 const char*IncorrectArgumentsInCreateCreator::what() const noexcept {
-    return "First word in every string must be the name of some editor command ";
+    return "Cannot downcast given value to known Commands";
 }
 
 const char*IncorrectArgumentsForCopyCreation::what() const noexcept {
@@ -42,5 +42,9 @@ const char*IncorrectArgumentsForDeleteCreation::what() const noexcept {
 
 const char*UndoEditorException::what() const noexcept {
     return "All commands is already canceled ";
+}
+
+const char*RedoEditorException::what() const noexcept {
+    return "No command for redo";
 }
 

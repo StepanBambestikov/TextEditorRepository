@@ -1,8 +1,18 @@
-#include "Parser_tests.h"
 #include "StringBuffer_tests.h"
-#include "Commands_tests.h"
-#include "Creators_tests.h"
+#include "InputStreamTests.h"
+
+#include "CommandParserTests.h"
+#include "ParserTests.h"
+
+#include "CommandsDTOTests.h"
+#include "CreatorsTests.h"
+#include "CommandsTests.h"
+
 #include "StringEditorTests.h"
+
+#include "DTOProviderTests.h"
+#include "CreatorProviderTests.h"
+#include "CommandProviderTests.h"
 #include "CommandListExecutorTests.h"
 
 int main(int argc, char ** argv) {

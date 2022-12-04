@@ -1,8 +1,14 @@
-//
-// Created by Admin on 01.12.2022.
-//
+#pragma once
+#include "CommandDTO.h"
 
-#ifndef TEXTEDITOR_DELETEDTO_H
-#define TEXTEDITOR_DELETEDTO_H
+class DeleteDTO final : public CommandDTO{
+public:
+    DeleteDTO(size_t _idx1, size_t _idx2);
+    [[nodiscard]] size_t getIdx1() const;
+    [[nodiscard]] size_t getIdx2() const;
+private:
+    size_t idx1;
+    size_t idx2;
 
-#endif //TEXTEDITOR_DELETEDTO_H
+    void unusedFunc() override{}
+};

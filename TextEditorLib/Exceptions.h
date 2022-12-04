@@ -15,13 +15,15 @@ class IncorrectArgumentsdeleteStringInRange final : public StringBufferException
     const char *what() const noexcept override;
 };
 
-class CopyException : public std::exception{};
+class CommandException : public std::exception{};
+
+class CopyException : public CommandException{};
 
 class IncorrectArgumentsInCopyRedo final : public CopyException{
     const char *what() const noexcept override;
 };
 
-class PasteException : public std::exception{};
+class PasteException : public CommandException{};
 
 class IncorrectArgumentsInPasteRedo final : public PasteException{
     const char *what() const noexcept override;
@@ -33,25 +35,25 @@ class IncorrectArgumentsInCreateCreator final : public CreatorException{
     const char *what() const noexcept override;
 };
 
-class CopyCreatorException : public std::exception{};
+class CopyCreatorException : public CreatorException{};
 
 class IncorrectArgumentsForCopyCreation final : public CopyCreatorException{
     const char *what() const noexcept override;
 };
 
-class PasteCreatorException : public std::exception{};
+class PasteCreatorException : public CreatorException{};
 
 class IncorrectArgumentsForPasteCreation final : public PasteCreatorException{
     const char *what() const noexcept override;
 };
 
-class InsertCreatorException : public std::exception{};
+class InsertCreatorException : public CreatorException{};
 
 class IncorrectArgumentsForInsertCreation final : public InsertCreatorException{
     const char *what() const noexcept override;
 };
 
-class DeleteCreatorException : public std::exception{};
+class DeleteCreatorException : public CreatorException{};
 
 class IncorrectArgumentsForDeleteCreation final : public DeleteCreatorException{
     const char *what() const noexcept override;
@@ -60,6 +62,10 @@ class IncorrectArgumentsForDeleteCreation final : public DeleteCreatorException{
 class StringEditorException : public std::exception{};
 
 class UndoEditorException final : public StringEditorException{
+    const char *what() const noexcept override;
+};
+
+class RedoEditorException final : public StringEditorException{
     const char *what() const noexcept override;
 };
 

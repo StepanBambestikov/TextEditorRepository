@@ -1,8 +1,10 @@
-//
-// Created by Admin on 03.12.2022.
-//
+#pragma once
+#include "CommandInterface.h"
 
-#ifndef TEXTEDITOR_COMMANDPROVIDER_H
-#define TEXTEDITOR_COMMANDPROVIDER_H
-
-#endif //TEXTEDITOR_COMMANDPROVIDER_H
+class CommandProvider {
+public:
+    CommandProvider() = default;
+    virtual ~CommandProvider() = default;
+    virtual std::unique_ptr<CommandInterface> getCommand() = 0;
+    virtual bool hasNext() const = 0;
+};

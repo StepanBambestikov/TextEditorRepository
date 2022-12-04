@@ -1,15 +1,15 @@
 #pragma once
 #include "StringEditor.h"
-#include "Parser.h"
 #include "StringBuffer.h"
+#include "CommandProvider.h"
 #include "Creators.h"// TODO кому подключать creator'ов?
 
 class CommandListExecutor final{
 public:
-    CommandListExecutor(const Parser& _commandList, const StringBuffer& _str) noexcept;
+    CommandListExecutor(std::unique_ptr<CommandProvider> _provider, StringBuffer _str) noexcept;
     StringBuffer runAllAndGetString();
 private:
-    StringEditor editor;
-    Parser commandList;
+    std::unique_ptr<CommandProvider> provider;
     std::shared_ptr<StringBuffer> strPtr;
+    StringEditor editor;
 };

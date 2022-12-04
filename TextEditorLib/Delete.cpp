@@ -1,22 +1,21 @@
-#pragma once
 #include "Delete.h"
 
-Delete::Delete(std::shared_ptr<StringBuffer> str, size_t _begin, size_t _end) noexcept : CommandInterface(std::move(str)){
+Delete::Delete(size_t _begin, size_t _end) noexcept {
     begin = _begin;
     end = _end;
 }
 
-void Delete::redo(){
-    deletedStr = strBuf->getStringInRange(begin, end);
-    strBuf->deleteStringInRange(begin, end);
+void Delete::redo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer){
+    deletedStr = str->getSubStringInRange(begin, end);
+    str->deleteStringInRange(begin, end);
     positionOfDeleted = begin;
 }
 
-void Delete::undo(){
+void Delete::undo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer){
     if (!deletedStr.size()){
         return;
     }
-    strBuf->pasteInPosition(positionOfDeleted, deletedStr);
+    str->pasteInPosition(positionOfDeleted, deletedStr);
 }
 
 

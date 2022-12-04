@@ -5,9 +5,8 @@
 
 TEST(CreatorProvider, AverageStream){
     InputStream stream(std::make_unique<std::stringstream>("insert _insert_me_ 2\nundo\n   delete 1 2 \n paste 1\n copy 1 2\nerror\n"));
-    Parser p(stream);
-    auto dtoProvider = DTOProviderFromParser(std::make_shared<Parser>(p));
-    auto creatorProvider = CreatorProviderFromDTO(std::make_shared<DTOProviderFromParser>(dtoProvider));
+    auto parsePtr = std::make_unique<Parser>(stream);
+    auto creatorProvider = CreatorProviderFromDTO(std::make_unique<DTOProviderFromParser>(std::move(parsePtr)));
     auto ptr = creatorProvider.getCreator();
     ASSERT_TRUE(ptr);
     InsertCreator* inCreator = dynamic_cast<InsertCreator*>(ptr.get());

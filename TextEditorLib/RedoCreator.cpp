@@ -1,4 +1,7 @@
-//
-// Created by Admin on 03.12.2022.
-//
+#include "RedoCreator.h"
 
+RedoCreator::RedoCreator(RedoDTO dto) noexcept {}
+
+std::unique_ptr<CommandInterface> RedoCreator::createCommand() const{
+    return std::make_unique<Redo>();
+}

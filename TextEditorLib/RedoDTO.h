@@ -1,8 +1,9 @@
-//
-// Created by Admin on 03.12.2022.
-//
+#pragma once
+#include "CommandDTO.h"
 
-#ifndef TEXTEDITOR_REDODTO_H
-#define TEXTEDITOR_REDODTO_H
-
-#endif //TEXTEDITOR_REDODTO_H
+class RedoDTO final : public CommandDTO{
+public:
+    RedoDTO() = default;
+private:
+    void unusedFunc() override{}
+};

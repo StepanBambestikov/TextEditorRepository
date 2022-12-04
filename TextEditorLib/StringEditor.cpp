@@ -1,25 +1,47 @@
 #include "StringEditor.h"
 
-StringEditor::StringEditor() noexcept = default;
+StringEditor::StringEditor(std::shared_ptr<StringBuffer> _str) noexcept
+: str(_str) {}
 
-void StringEditor::addAndExecuteCommand(std::shared_ptr<CommandInterface> cmdPtr){
-    cmdPtr->redo();
-    commands.emplace_back(std::move(cmdPtr));
-    currentCmd = static_cast<int>(commands.size() - 1);
+bool StringEditor::addAndExecuteCommand(std::unique_ptr<CommandInterface> cmdPtr){
+    try{
+        cmdPtr->redo(str, buffer);
+        commands.emplace_back(std::move(cmdPtr));
+        canceledCmd.reset();
+        return true;
+    }
+    catch (CommandException& except){
+        return false;
+    }
 }
 
-void StringEditor::undo(){
-    if (currentCmd < 0){
+bool StringEditor::undo(){
+    if (commands.empty()){
         throw UndoEditorException();
     }
-    commands[currentCmd]->undo();
-    canceledCmd = commands[currentCmd];
-    --currentCmd;
+    try{
+        commands.back()->undo(str, buffer);
+        canceledCmd = std::move(commands.back());
+        commands.pop_back();
+        return true;
+    }
+    catch (CommandException& except){
+        return false;
+    }
 }
 
-void StringEditor::redo(){
-    if (canceledCmd){
-        canceledCmd->redo();
+bool StringEditor::redo(){
+    if (!canceledCmd){
+        throw RedoEditorException();
     }
-    canceledCmd.reset();
+    try{
+        canceledCmd->redo(str, buffer);
+        commands.push_back(std::move(canceledCmd));
+        return true;
+    }
+    catch (CommandException& except){
+        return false;
+    }
 }
+
+//TODO try is bad!

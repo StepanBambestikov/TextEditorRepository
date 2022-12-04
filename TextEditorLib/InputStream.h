@@ -3,6 +3,6 @@
 
 class InputStream final{
 public:
-    InputStream(std::istream& _is);
-    std::istream& is;
+    InputStream(std::unique_ptr<std::istream> _is);
+    std::unique_ptr<std::istream> is;
 };

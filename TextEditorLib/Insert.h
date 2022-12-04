@@ -3,9 +3,9 @@
 
 class Insert final : public CommandInterface{
 public:
-    Insert(std::shared_ptr<StringBuffer> str, StringBuffer _strForInsert, size_t position) noexcept;
-    void undo() override;
-    void redo() override;
+    Insert(StringBuffer _strForInsert, size_t _position) noexcept;
+    void undo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) override;
+    void redo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) override;
 private:
     StringBuffer strForInsert;
     size_t position;

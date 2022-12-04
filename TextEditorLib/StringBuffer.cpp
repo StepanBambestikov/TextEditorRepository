@@ -3,8 +3,8 @@
 StringBuffer::StringBuffer() noexcept = default;
 StringBuffer::StringBuffer(std::string _str) noexcept : str(std::move(_str)){}
 
-StringBuffer StringBuffer::getStringInRange(size_t begin, size_t end) const{
-    if (end - begin > str.size()){
+StringBuffer StringBuffer::getSubStringInRange(size_t begin, size_t end) const{
+    if (end > str.size() || begin > end){
         throw IncorrectArgumentsGetStringInRange();
     }
     return StringBuffer(str.substr(begin, end - begin));
@@ -18,13 +18,13 @@ void StringBuffer::pasteInPosition(size_t position, const StringBuffer& strBuf){
 }
 
 void StringBuffer::deleteStringInRange(size_t begin, size_t end){
-    if (end - begin > str.size()){
+    if (end > str.size() || begin > end){
         throw IncorrectArgumentsdeleteStringInRange();
     }
     str.erase(begin, end - begin);
 }
 
-std::string StringBuffer::getString() const noexcept{
+const std::string& StringBuffer::getString() const noexcept{
     return str;
 }
 

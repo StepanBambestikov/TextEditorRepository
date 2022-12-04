@@ -1,8 +1,9 @@
-//
-// Created by Admin on 03.12.2022.
-//
+#pragma once
+#include "CommandInterface.h"
 
-#ifndef TEXTEDITOR_UNDO_H
-#define TEXTEDITOR_UNDO_H
-
-#endif //TEXTEDITOR_UNDO_H
+class Undo final : public CommandInterface{
+public:
+    Undo() noexcept = default;
+    void undo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) override{}
+    void redo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) override{}
+};

@@ -1,8 +1,13 @@
-//
-// Created by Admin on 03.12.2022.
-//
+#pragma once
+#include "CommandCreator.h"
+#include "Redo.h"
 
-#ifndef TEXTEDITOR_REDOCREATOR_H
-#define TEXTEDITOR_REDOCREATOR_H
+class RedoCreator final : public CommandCreator{
+public:
+    RedoCreator(RedoDTO dto) noexcept;
+    ~RedoCreator() noexcept override = default;
 
-#endif //TEXTEDITOR_REDOCREATOR_H
+    [[nodiscard]] std::unique_ptr<CommandInterface> createCommand() const override;
+private:
+    RedoDTO DTO;
+};

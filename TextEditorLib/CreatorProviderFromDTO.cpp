@@ -1,8 +1,8 @@
-#include "CreatorProvider.h"
+#include "CreatorProviderFromDTO.h"
 
-CreatorProvider::CreatorProvider(std::shared_ptr<DTOProviderFromParser> _provider) : provider(_provider) {}
+CreatorProviderFromDTO::CreatorProviderFromDTO(std::unique_ptr<DTOProvider> _provider) : provider(std::move(_provider)) {}
 
-std::unique_ptr<CommandCreator> CreatorProvider::getCreator(){
+std::unique_ptr<CommandCreator> CreatorProviderFromDTO::getCreator(){
     if (!provider->hasNext()){
         return{};
     }
@@ -13,6 +13,6 @@ std::unique_ptr<CommandCreator> CreatorProvider::getCreator(){
     return {};
 }
 
-bool CreatorProvider::hasNext() const{
+bool CreatorProviderFromDTO::hasNext() const{
     return provider->hasNext();
 }

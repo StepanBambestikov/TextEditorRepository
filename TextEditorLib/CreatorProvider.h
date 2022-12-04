@@ -1,8 +1,11 @@
-//
-// Created by Admin on 03.12.2022.
-//
+#pragma once
+#include "DTOProvider.h"
+#include "CommandCreator.h"
 
-#ifndef TEXTEDITOR_DTOPROVIDER_H
-#define TEXTEDITOR_DTOPROVIDER_H
-
-#endif //TEXTEDITOR_DTOPROVIDER_H
+class CreatorProvider{
+public:
+    CreatorProvider() = default;
+    virtual ~CreatorProvider() = default;
+    virtual std::unique_ptr<CommandCreator> getCreator() = 0;
+    virtual bool hasNext() const = 0;
+};

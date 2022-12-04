@@ -1,8 +1,12 @@
-//
-// Created by Admin on 01.12.2022.
-//
+#pragma once
+#include "CommandDTO.h"
 
-#ifndef TEXTEDITOR_PASTEDTO_H
-#define TEXTEDITOR_PASTEDTO_H
+class PasteDTO final : public CommandDTO{
+public:
+    PasteDTO(size_t _position);
+    [[nodiscard]] size_t getPosition() const;
+private:
+    size_t position;
 
-#endif //TEXTEDITOR_PASTEDTO_H
+    void unusedFunc() override{}
+};

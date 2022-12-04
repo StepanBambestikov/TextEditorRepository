@@ -1,8 +1,7 @@
-//
-// Created by Admin on 01.12.2022.
-//
-
-#ifndef TEXTEDITOR_DTO_H
-#define TEXTEDITOR_DTO_H
-
-#endif //TEXTEDITOR_DTO_H
+#pragma once
+#include "CopyDTO.h"
+#include "PasteDTO.h"
+#include "InsertDTO.h"
+#include "DeleteDTO.h"
+#include "RedoDTO.h"
+#include "UndoDTO.h"

@@ -1,8 +1,13 @@
-//
-// Created by Admin on 03.12.2022.
-//
+#pragma once
+#include "CommandCreator.h"
+#include "Undo.h"
 
-#ifndef TEXTEDITOR_UNDOCREATOR_H
-#define TEXTEDITOR_UNDOCREATOR_H
+class UndoCreator final : public CommandCreator{
+public:
+    UndoCreator(UndoDTO dto) noexcept;
+    ~UndoCreator() noexcept override = default;
 
-#endif //TEXTEDITOR_UNDOCREATOR_H
+    [[nodiscard]] std::unique_ptr<CommandInterface> createCommand() const override;
+private:
+    UndoDTO DTO;
+};

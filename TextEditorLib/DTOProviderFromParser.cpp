@@ -1,6 +1,6 @@
-#include "DTOProvider.h"
+#include "DTOProviderFromParser.h"
 
-DTOProviderFromParser::DTOProviderFromParser(std::shared_ptr<Parser> _parserPtr) : parserPtr(_parserPtr){}
+DTOProviderFromParser::DTOProviderFromParser(std::unique_ptr<Parser> _parserPtr) : parserPtr(std::move(_parserPtr)){}
 
 std::unique_ptr<CommandDTO> DTOProviderFromParser::getDTO(){
     if (!parserPtr->eof()){

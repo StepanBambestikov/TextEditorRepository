@@ -1,8 +1,7 @@
-//
-// Created by Admin on 01.12.2022.
-//
+#pragma once
+#include "StringBuffer.h"
 
-#ifndef TEXTEDITOR_COMMANDDTO_H
-#define TEXTEDITOR_COMMANDDTO_H
-
-#endif //TEXTEDITOR_COMMANDDTO_H
+class CommandDTO{
+protected:
+    virtual void unusedFunc() = 0;
+};

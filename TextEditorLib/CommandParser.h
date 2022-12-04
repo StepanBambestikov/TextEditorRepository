@@ -1,8 +1,7 @@
-//
-// Created by Admin on 01.12.2022.
-//
+#pragma once
+#include <memory>
 
-#ifndef TEXTEDITOR_COMMANDPARSER_H
-#define TEXTEDITOR_COMMANDPARSER_H
+#include "InputStream.h"
+#include "DTO.h"
 
-#endif //TEXTEDITOR_COMMANDPARSER_H
+std::unique_ptr<CommandDTO> parseStreamToDTO(InputStream stream);

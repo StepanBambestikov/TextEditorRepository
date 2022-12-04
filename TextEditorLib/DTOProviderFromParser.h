@@ -1,8 +1,13 @@
-//
-// Created by Admin on 04.12.2022.
-//
+#pragma once
+#include "DTOProvider.h"
+#include "Parser.h"
+#include "CommandParser.h"
 
-#ifndef TEXTEDITOR_DTOPROVIDERFROMPARSER_H
-#define TEXTEDITOR_DTOPROVIDERFROMPARSER_H
-
-#endif //TEXTEDITOR_DTOPROVIDERFROMPARSER_H
+class DTOProviderFromParser final : public DTOProvider {
+public:
+    DTOProviderFromParser(std::unique_ptr<Parser> _parser);
+    std::unique_ptr<CommandDTO> getDTO() override;
+    [[nodiscard]] bool hasNext() const override;
+private:
+    std::unique_ptr<Parser> parserPtr;
+};

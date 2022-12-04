@@ -1,8 +1,12 @@
-//
-// Created by Admin on 04.12.2022.
-//
+#pragma once
+#include "CommandProvider.h"
+#include "CreatorProvider.h"
 
-#ifndef TEXTEDITOR_COMMANDPROVIDERFROMCREATOR_H
-#define TEXTEDITOR_COMMANDPROVIDERFROMCREATOR_H
-
-#endif //TEXTEDITOR_COMMANDPROVIDERFROMCREATOR_H
+class CommandProviderFromCreator : public CommandProvider{
+public:
+    CommandProviderFromCreator(std::unique_ptr<CreatorProvider> _provider);
+    virtual std::unique_ptr<CommandInterface> getCommand() override;
+    virtual bool hasNext() const override;
+private:
+    std::unique_ptr<CreatorProvider> provider;
+};

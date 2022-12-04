@@ -3,11 +3,10 @@
 
 class Paste final : public CommandInterface{
 public:
-    Paste(std::shared_ptr<StringBuffer> _str, std::shared_ptr<StringBuffer> _buffer, size_t _position);
-    void undo() override;
-    void redo() override;
+    Paste(size_t _position);
+    void undo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) override;
+    void redo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) override;
 private:
-    std::shared_ptr<StringBuffer> bufferPtr;
     size_t position;
-    size_t len;
+    size_t len = { 0 };
 };

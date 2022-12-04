@@ -1,8 +1,13 @@
-//
-// Created by Admin on 04.12.2022.
-//
+#pragma once
+#include "CreatorProvider.h"
+#include "DTOProvider.h"
+#include "CommandCreator.h"
 
-#ifndef TEXTEDITOR_CREATORPROVIDERFROMDTO_H
-#define TEXTEDITOR_CREATORPROVIDERFROMDTO_H
-
-#endif //TEXTEDITOR_CREATORPROVIDERFROMDTO_H
+class CreatorProviderFromDTO final : public CreatorProvider{
+public:
+    CreatorProviderFromDTO(std::unique_ptr<DTOProvider> _provider);
+    std::unique_ptr<CommandCreator> getCreator() override;
+    [[nodiscard]] bool hasNext() const override;
+private:
+    std::unique_ptr<DTOProvider> provider;
+};
