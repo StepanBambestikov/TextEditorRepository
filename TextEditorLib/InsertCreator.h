@@ -4,10 +4,11 @@
 
 class InsertCreator final : public CommandCreator{
 public:
-    InsertCreator(InsertDTO dto) noexcept;
+    InsertCreator(CommandDTO dto) noexcept;
     ~InsertCreator() noexcept override = default;
 
-    [[nodiscard]] std::unique_ptr<CommandInterface> createCommand() const override;
+    [[nodiscard]] std::unique_ptr<UserCommand> tryCreateUserCommand() const noexcept override;
+    [[nodiscard]] std::unique_ptr<ServiceCommand> tryCreateServiceCommand() const noexcept override;
 private:
-    InsertDTO DTO;
+    CommandDTO DTO;
 };

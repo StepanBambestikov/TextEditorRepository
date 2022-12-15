@@ -6,10 +6,11 @@
 
 class DeleteCreator final : public CommandCreator{
 public:
-    DeleteCreator(DeleteDTO dto) noexcept;
-    ~DeleteCreator() override = default;
+    DeleteCreator(CommandDTO dto) noexcept;
+    ~DeleteCreator() noexcept override = default;
 
-    [[nodiscard]] std::unique_ptr<CommandInterface> createCommand() const override;
+    [[nodiscard]] std::unique_ptr<UserCommand> tryCreateUserCommand() const noexcept override;
+    [[nodiscard]] std::unique_ptr<ServiceCommand> tryCreateServiceCommand() const noexcept override;
 private:
-    DeleteDTO DTO;
+    CommandDTO DTO;
 };

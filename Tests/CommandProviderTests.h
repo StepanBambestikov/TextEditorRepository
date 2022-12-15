@@ -1,5 +1,9 @@
 #pragma once
 #include "gtest/gtest.h"
+#include "../TextEditorLib/InputStream.h"
+#include "../TextEditorLib/Parser.h"
+#include "../TextEditorLib/DTOProviderFromParser.h"
+#include "../TextEditorLib/CreatorProviderFromDTO.h"
 #include "../TextEditorLib/CommandProviderFromCreator.h"
 #include "Commands.h"
 
@@ -13,12 +17,16 @@ TEST(CommandProvider, AverageStream) {
 
     auto str = std::make_shared<StringBuffer>("12345");
     auto buf = std::make_shared<StringBuffer>();
-    std::unique_ptr<CommandInterface> ptr;
 
+    std::unique_ptr<UserCommand> uPtr;
+    std::unique_ptr<ServiceCommand> sPtr;
     while(commandProvider.hasNext()){
-        ptr = commandProvider.getCommand();
-        if (ptr){
-            ptr->redo(str, buf);
+        uPtr = commandProvider.tryGetUserCommand();
+        if (uPtr) {
+            uPtr->redo(str, buf);
+        }
+        else{
+            sPtr = commandProvider.tryGetServiceCommand();
         }
     }
     ASSERT_TRUE(str->getString() == "1_i_insert_me_345");

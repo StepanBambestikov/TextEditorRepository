@@ -1,10 +1,12 @@
 #pragma once
-#include "CommandInterface.h"
+#include "UserCommand.h"
+#include "ServiceCommand.h"
 
 class CommandProvider {
 public:
-    CommandProvider() = default;
-    virtual ~CommandProvider() = default;
-    virtual std::unique_ptr<CommandInterface> getCommand() = 0;
-    virtual bool hasNext() const = 0;
+    CommandProvider() noexcept = default;
+    virtual ~CommandProvider() noexcept = default;
+    virtual std::unique_ptr<UserCommand> tryGetUserCommand() = 0;
+    virtual std::unique_ptr<ServiceCommand> tryGetServiceCommand() = 0;
+    [[nodiscard]] virtual bool hasNext() const = 0;
 };

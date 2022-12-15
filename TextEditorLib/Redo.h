@@ -1,9 +1,9 @@
 #pragma once
-#include "CommandInterface.h"
+#include "ServiceCommand.h"
 
-class Redo final : public CommandInterface{
+class Redo final : public ServiceCommand{
 public:
     Redo() noexcept = default;
-    void undo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) override{}
-    void redo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) override{}
+    void redo(StringEditor& editor) const noexcept override;
 };
+

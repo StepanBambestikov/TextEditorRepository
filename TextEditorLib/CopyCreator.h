@@ -6,10 +6,10 @@
 
 class CopyCreator final : public CommandCreator{
 public:
-    CopyCreator(CopyDTO dto) noexcept;
+    CopyCreator(CommandDTO dto) noexcept;
     ~CopyCreator() noexcept override = default;
-
-    [[nodiscard]] std::unique_ptr<CommandInterface> createCommand() const override;
+    [[nodiscard]] std::unique_ptr<UserCommand> tryCreateUserCommand() const noexcept override;
+    [[nodiscard]] std::unique_ptr<ServiceCommand> tryCreateServiceCommand() const noexcept override;
 private:
-    CopyDTO DTO;
+    CommandDTO DTO;
 };

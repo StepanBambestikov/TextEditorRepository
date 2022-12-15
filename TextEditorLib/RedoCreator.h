@@ -4,10 +4,9 @@
 
 class RedoCreator final : public CommandCreator{
 public:
-    RedoCreator(RedoDTO dto) noexcept;
+    RedoCreator(CommandDTO dto) noexcept;
     ~RedoCreator() noexcept override = default;
 
-    [[nodiscard]] std::unique_ptr<CommandInterface> createCommand() const override;
-private:
-    RedoDTO DTO;
+    [[nodiscard]] std::unique_ptr<UserCommand> tryCreateUserCommand() const noexcept override;
+    [[nodiscard]] std::unique_ptr<ServiceCommand> tryCreateServiceCommand() const noexcept override;
 };

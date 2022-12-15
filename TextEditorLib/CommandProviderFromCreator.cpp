@@ -1,18 +1,37 @@
 #include "CommandProviderFromCreator.h"
 
-CommandProviderFromCreator::CommandProviderFromCreator(std::unique_ptr<CreatorProvider> _provider) : provider(std::move(_provider)) {}
-
-std::unique_ptr<CommandInterface> CommandProviderFromCreator::getCommand(){
-    if (!provider->hasNext()){
-        return{};
+void CommandProviderFromCreator::nextCreatorUpdate() noexcept {
+    if (provider->hasNext()){
+        nextCreatorPtr = provider->getCreator();
     }
-    auto creatorPtr = provider->getCreator();
-    if (creatorPtr){
-        return creatorPtr->createCommand();
+    else{
+        nextCreatorPtr = {};
+    }
+}
+
+CommandProviderFromCreator::CommandProviderFromCreator(std::unique_ptr<CreatorProvider> _provider) noexcept : provider(std::move(_provider)) {
+    nextCreatorUpdate();
+}
+
+
+std::unique_ptr<UserCommand> CommandProviderFromCreator::tryGetUserCommand() noexcept {
+    auto commandPtr = nextCreatorPtr->tryCreateUserCommand();
+    if (commandPtr){
+        nextCreatorUpdate();
+        return commandPtr;
     }
     return {};
 }
 
-bool CommandProviderFromCreator::hasNext() const{
-    return provider->hasNext();
+std::unique_ptr<ServiceCommand> CommandProviderFromCreator::tryGetServiceCommand() noexcept {
+    auto commandPtr = nextCreatorPtr->tryCreateServiceCommand();
+    if (commandPtr){
+        nextCreatorUpdate();
+        return commandPtr;
+    }
+    return {};
+}
+
+bool CommandProviderFromCreator::hasNext() const noexcept {
+    return nextCreatorPtr || provider->hasNext();
 }

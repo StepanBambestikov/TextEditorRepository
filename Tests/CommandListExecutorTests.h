@@ -1,5 +1,10 @@
 #pragma once
 #include "gtest/gtest.h"
+#include "../TextEditorLib/InputStream.h"
+#include "../TextEditorLib/Parser.h"
+#include "../TextEditorLib/DTOProviderFromParser.h"
+#include "../TextEditorLib/CreatorProviderFromDTO.h"
+#include "../TextEditorLib/CommandProviderFromCreator.h"
 #include "../TextEditorLib/CommandListExecutor.h"
 
 TEST(CommandListExecutor, averageData){

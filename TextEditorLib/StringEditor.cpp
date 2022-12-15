@@ -3,7 +3,10 @@
 StringEditor::StringEditor(std::shared_ptr<StringBuffer> _str) noexcept
 : str(_str) {}
 
-bool StringEditor::addAndExecuteCommand(std::unique_ptr<CommandInterface> cmdPtr){
+bool StringEditor::addAndExecuteCommand(std::unique_ptr<UserCommand> cmdPtr){
+    if (!cmdPtr){
+        throw NullPtrCommandException();
+    }
     try{
         cmdPtr->redo(str, buffer);
         commands.emplace_back(std::move(cmdPtr));
@@ -15,7 +18,7 @@ bool StringEditor::addAndExecuteCommand(std::unique_ptr<CommandInterface> cmdPtr
     }
 }
 
-bool StringEditor::undo(){
+bool StringEditor::tryUndo(){
     if (commands.empty()){
         throw UndoEditorException();
     }
@@ -30,7 +33,7 @@ bool StringEditor::undo(){
     }
 }
 
-bool StringEditor::redo(){
+bool StringEditor::tryRedo(){
     if (!canceledCmd){
         throw RedoEditorException();
     }
@@ -43,5 +46,3 @@ bool StringEditor::redo(){
         return false;
     }
 }
-
-//TODO try is bad!

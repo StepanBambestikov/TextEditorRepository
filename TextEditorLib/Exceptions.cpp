@@ -13,11 +13,11 @@ const char* IncorrectArgumentsdeleteStringInRange::what() const noexcept {
 }
 
 const char* IncorrectArgumentsInCopyRedo::what() const noexcept {
-    return "Incorrect arguments for member Copy::redo(begin, end) ";
+    return "Incorrect arguments for member Copy::tryRedo(begin, end) ";
 }
 
 const char* IncorrectArgumentsInPasteRedo::what() const noexcept {
-    return "Incorrect arguments for member Paste::redo(position) ";
+    return "Incorrect arguments for member Paste::tryRedo(position) ";
 }
 
 const char*IncorrectArgumentsInCreateCreator::what() const noexcept {
@@ -40,11 +40,19 @@ const char*IncorrectArgumentsForDeleteCreation::what() const noexcept {
     return "Incorrect arguments for delete creation in DeleteCreator ";
 }
 
+const char*NullPtrCommandException::what() const noexcept {
+    return "Command ptr in StringEditor::addAndExecuteCommand(std::unique_ptr<CommandInterface>) must be valid";
+}
+
 const char*UndoEditorException::what() const noexcept {
     return "All commands is already canceled ";
 }
 
 const char*RedoEditorException::what() const noexcept {
-    return "No command for redo";
+    return "No command for tryRedo";
+}
+
+const char*InvalidCreatorException::what() const noexcept {
+    return "invalid creator provided in CommandListExecutor::runAllAndGetString()";
 }
 

@@ -2,10 +2,10 @@
 #include <memory>
 #include "StringBuffer.h"
 
-class CommandInterface {
+class UserCommand {
 public:
-    explicit CommandInterface() noexcept = default;
-    virtual ~CommandInterface() = default;
+    explicit UserCommand() noexcept = default;
+    virtual ~UserCommand() noexcept = default;
 
     virtual void undo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) = 0;
     virtual void redo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) = 0;

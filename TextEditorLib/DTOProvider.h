@@ -4,8 +4,8 @@
 
 class DTOProvider {
 public:
-    DTOProvider() = default;
-    virtual ~DTOProvider() = default;
+    DTOProvider() noexcept = default;
+    virtual ~DTOProvider() noexcept = default;
     virtual std::unique_ptr<CommandDTO> getDTO() = 0;
     virtual bool hasNext() const = 0;
 };

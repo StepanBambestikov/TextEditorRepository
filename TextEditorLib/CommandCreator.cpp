@@ -1,27 +1,29 @@
 #include "CommandCreator.h"
 #include "Creators.h"
 
-std::unique_ptr<CommandCreator> CommandCreator::createCreator(std::unique_ptr<CommandDTO> _DTOptr){
-    if (!_DTOptr){
+std::unique_ptr<CommandCreator> CommandCreator::createCreator(std::unique_ptr<CommandDTO> _dtoPtr){
+    if (!_dtoPtr){
         throw IncorrectArgumentsInCreateCreator();
     }
-    else if (auto copyPtr = dynamic_cast<CopyDTO*>(_DTOptr.get())){
-        return std::make_unique<CopyCreator>(*copyPtr);
+    auto commandName = _dtoPtr->getCommandName();
+
+    if (commandName == Commands::DELETE){
+        return std::make_unique<DeleteCreator>(*_dtoPtr);
     }
-    else if (auto pastePtr = dynamic_cast<PasteDTO*>(_DTOptr.get())){
-        return std::make_unique<PasteCreator>(*pastePtr);
+    else if (commandName == Commands::INSERT){
+        return std::make_unique<InsertCreator>(*_dtoPtr);
     }
-    else if (auto insertPtr = dynamic_cast<InsertDTO*>(_DTOptr.get())){
-        return std::make_unique<InsertCreator>(*insertPtr);
+    else if (commandName == Commands::PASTE){
+        return std::make_unique<PasteCreator>(*_dtoPtr);
     }
-    else if (auto deletePtr = dynamic_cast<DeleteDTO*>(_DTOptr.get())){
-        return std::make_unique<DeleteCreator>(*deletePtr);
+    else if (commandName == Commands::COPY){
+        return std::make_unique<CopyCreator>(*_dtoPtr);
     }
-    else if (auto undoPtr = dynamic_cast<UndoDTO*>(_DTOptr.get())){
-        return std::make_unique<UndoCreator>(*undoPtr);
+    else if (commandName == Commands::UNDO){
+        return std::make_unique<UndoCreator>(*_dtoPtr);
     }
-    else if (auto redoPtr = dynamic_cast<RedoDTO*>(_DTOptr.get())){
-        return std::make_unique<RedoCreator>(*redoPtr);
+    else if (commandName == Commands::REDO){
+        return std::make_unique<RedoCreator>(*_dtoPtr);
     }
     else{
         throw IncorrectArgumentsInCreateCreator();

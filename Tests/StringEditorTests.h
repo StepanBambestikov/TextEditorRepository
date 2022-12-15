@@ -14,25 +14,25 @@ TEST(StringEditor, OrdinaryCommands){
     StringEditor editor{str};
     editor.addAndExecuteCommand(std::move(insertCmd));
     ASSERT_TRUE(str->getString() == "12_insert_me_345");
-    editor.undo();
+    editor.tryUndo();
     ASSERT_TRUE(str->getString() == "12345");
-    editor.redo();
+    editor.tryRedo();
     ASSERT_TRUE(str->getString() == "12_insert_me_345");
     editor.addAndExecuteCommand(std::move(deleteCmd));
     ASSERT_TRUE(str->getString() == "1sert_me_345");
-    editor.undo();
+    editor.tryUndo();
     ASSERT_TRUE(str->getString() == "12_insert_me_345");
-    editor.undo();
+    editor.tryUndo();
     ASSERT_TRUE(str->getString() == "12345");
-    editor.redo();
+    editor.tryRedo();
     ASSERT_TRUE(str->getString() == "12_insert_me_345");
     editor.addAndExecuteCommand(std::move(copyCmd));
     ASSERT_TRUE(str->getString() == "12_insert_me_345");
     editor.addAndExecuteCommand(std::move(pasteCmd));
     ASSERT_TRUE(str->getString() == "12_2_ininsert_me_345");
-    editor.undo();
+    editor.tryUndo();
     ASSERT_TRUE(str->getString() == "12_insert_me_345");
-    editor.redo();
+    editor.tryRedo();
     ASSERT_TRUE(str->getString() == "12_2_ininsert_me_345");
 }
 
@@ -43,9 +43,9 @@ TEST(StringEditor, TooManyUndo){
     StringEditor editor(str);
     editor.addAndExecuteCommand(std::move(insertCmd));
     ASSERT_TRUE(str->getString() == "12_insert_me_345");
-    editor.undo();
+    editor.tryUndo();
     ASSERT_TRUE(str->getString() == "12345");
-    EXPECT_THROW(editor.undo(), UndoEditorException);
+    EXPECT_THROW(editor.tryUndo(), UndoEditorException);
 }
 
 TEST(StringEditor, Undo){
@@ -55,8 +55,8 @@ TEST(StringEditor, Undo){
 
     StringEditor editor{str};
     editor.addAndExecuteCommand(std::move(insertCmd1));
-    editor.undo();
+    editor.tryUndo();
     editor.addAndExecuteCommand(std::move(insertCmd2));
-    editor.undo();
-    EXPECT_THROW(editor.undo(), UndoEditorException);
+    editor.tryUndo();
+    EXPECT_THROW(editor.tryUndo(), UndoEditorException);
 }

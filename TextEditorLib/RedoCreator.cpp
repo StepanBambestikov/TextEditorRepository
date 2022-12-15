@@ -1,7 +1,10 @@
 #include "RedoCreator.h"
 
-RedoCreator::RedoCreator(RedoDTO dto) noexcept {}
+RedoCreator::RedoCreator(CommandDTO dto) noexcept {}
 
-std::unique_ptr<CommandInterface> RedoCreator::createCommand() const{
+std::unique_ptr<UserCommand> RedoCreator::tryCreateUserCommand() const noexcept{
+    return {};
+}
+std::unique_ptr<ServiceCommand> RedoCreator::tryCreateServiceCommand() const noexcept{
     return std::make_unique<Redo>();
 }

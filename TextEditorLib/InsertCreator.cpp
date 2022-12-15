@@ -1,7 +1,15 @@
 #include "InsertCreator.h"
 
-InsertCreator::InsertCreator(InsertDTO dto) noexcept : DTO(std::move(dto)) {}
+InsertCreator::InsertCreator(CommandDTO dto) noexcept : DTO(std::move(dto)) {}
 
-std::unique_ptr<CommandInterface> InsertCreator::createCommand() const{
-    return std::make_unique<Insert>(DTO.getString(), DTO.getPosition());
+std::unique_ptr<UserCommand> InsertCreator::tryCreateUserCommand() const noexcept{
+    if (!DTO.getString() || !DTO.getIdx1()){
+        return {};
+    }
+    return std::make_unique<Insert>(*DTO.getString(), *DTO.getIdx1());
 }
+
+std::unique_ptr<ServiceCommand> InsertCreator::tryCreateServiceCommand() const noexcept{
+    return {};
+}
+

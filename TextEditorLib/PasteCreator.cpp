@@ -1,7 +1,14 @@
 #include "PasteCreator.h"
 
-PasteCreator::PasteCreator(PasteDTO dto) noexcept : DTO(std::move(dto)){}
+PasteCreator::PasteCreator(CommandDTO dto) noexcept : DTO(std::move(dto)){}
 
-std::unique_ptr<CommandInterface> PasteCreator::createCommand() const{
-    return std::make_unique<Paste>(DTO.getPosition());
+std::unique_ptr<UserCommand> PasteCreator::tryCreateUserCommand() const noexcept{
+    if (!DTO.getIdx1()){
+        return {};
+    }
+    return std::make_unique<Paste>(*DTO.getIdx1());
+}
+
+std::unique_ptr<ServiceCommand> PasteCreator::tryCreateServiceCommand() const noexcept{
+    return {};
 }

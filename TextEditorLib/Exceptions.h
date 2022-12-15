@@ -61,6 +61,10 @@ class IncorrectArgumentsForDeleteCreation final : public DeleteCreatorException{
 
 class StringEditorException : public std::exception{};
 
+class NullPtrCommandException final : public StringEditorException{
+    const char *what() const noexcept override;
+};
+
 class UndoEditorException final : public StringEditorException{
     const char *what() const noexcept override;
 };
@@ -69,4 +73,9 @@ class RedoEditorException final : public StringEditorException{
     const char *what() const noexcept override;
 };
 
+class CommandListExecutorException : public std::exception{};
+
+class InvalidCreatorException final : public CommandListExecutorException{
+    const char *what() const noexcept override;
+};
 

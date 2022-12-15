@@ -1,7 +1,7 @@
 #pragma once
-#include "CommandInterface.h"
+#include "UserCommand.h"
 
-class Copy final : public CommandInterface{
+class Copy final : public UserCommand{
 public:
     Copy(size_t _begin, size_t _end) noexcept;
     void undo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) noexcept override;

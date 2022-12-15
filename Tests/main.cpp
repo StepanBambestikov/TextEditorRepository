@@ -1,7 +1,6 @@
 #include "StringBuffer_tests.h"
 #include "InputStreamTests.h"
 
-#include "CommandParserTests.h"
 #include "ParserTests.h"
 
 #include "CommandsDTOTests.h"

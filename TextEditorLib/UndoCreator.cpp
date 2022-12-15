@@ -1,7 +1,10 @@
 #include "UndoCreator.h"
 
-UndoCreator::UndoCreator(UndoDTO dto) noexcept {}
+UndoCreator::UndoCreator(CommandDTO dto) noexcept {}
 
-std::unique_ptr<CommandInterface> UndoCreator::createCommand() const{
+std::unique_ptr<UserCommand> UndoCreator::tryCreateUserCommand() const noexcept{
+    return {};
+}
+std::unique_ptr<ServiceCommand> UndoCreator::tryCreateServiceCommand() const noexcept{
     return std::make_unique<Undo>();
 }

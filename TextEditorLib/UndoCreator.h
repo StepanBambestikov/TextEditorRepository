@@ -4,10 +4,9 @@
 
 class UndoCreator final : public CommandCreator{
 public:
-    UndoCreator(UndoDTO dto) noexcept;
+    UndoCreator(CommandDTO dto) noexcept;
     ~UndoCreator() noexcept override = default;
 
-    [[nodiscard]] std::unique_ptr<CommandInterface> createCommand() const override;
-private:
-    UndoDTO DTO;
+    [[nodiscard]] std::unique_ptr<UserCommand> tryCreateUserCommand() const noexcept override;
+    [[nodiscard]] std::unique_ptr<ServiceCommand> tryCreateServiceCommand() const noexcept override;
 };
