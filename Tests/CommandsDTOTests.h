@@ -38,7 +38,7 @@ TEST(CommandDTO, insertArgs){
     ASSERT_TRUE(dto.getIdx1() == 1);
     ASSERT_FALSE(dto.getIdx2());
     ASSERT_TRUE(dto.getCommandName() == Commands::INSERT);
-    ASSERT_TRUE(dto.getString().value().getString() == "smf");
+    ASSERT_TRUE(*dto.getString().value() == "smf");
 }
 
 TEST(CommandDTO, pasteArgs){

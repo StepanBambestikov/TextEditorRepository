@@ -6,10 +6,8 @@
 
 class CommandListExecutor final{
 public:
-    CommandListExecutor(std::unique_ptr<CommandProvider> _provider, StringBuffer _str) noexcept;
-    StringBuffer runAllAndGetString();
+    CommandListExecutor(std::unique_ptr<CommandProvider> _provider) noexcept;
+    StringBuffer runAllAndGetString(std::unique_ptr<StringEditor> editorPtr);
 private:
     std::unique_ptr<CommandProvider> provider;
-    std::shared_ptr<StringBuffer> strPtr;
-    StringEditor editor;
 };

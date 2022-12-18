@@ -37,11 +37,19 @@ class IncorrectArgumentsInCreateCreator final : public CreatorException{
 
 class CopyCreatorException : public CreatorException{};
 
+class InvalidDTOForCopyCreator final : public CopyCreatorException{
+    const char *what() const noexcept override;
+};
+
 class IncorrectArgumentsForCopyCreation final : public CopyCreatorException{
     const char *what() const noexcept override;
 };
 
 class PasteCreatorException : public CreatorException{};
+
+class InvalidDTOForPasteCreator final : public PasteCreatorException{
+    const char *what() const noexcept override;
+};
 
 class IncorrectArgumentsForPasteCreation final : public PasteCreatorException{
     const char *what() const noexcept override;
@@ -49,11 +57,19 @@ class IncorrectArgumentsForPasteCreation final : public PasteCreatorException{
 
 class InsertCreatorException : public CreatorException{};
 
+class InvalidDTOForInsertCreator final : public InsertCreatorException{
+    const char *what() const noexcept override;
+};
+
 class IncorrectArgumentsForInsertCreation final : public InsertCreatorException{
     const char *what() const noexcept override;
 };
 
 class DeleteCreatorException : public CreatorException{};
+
+class InvalidDTOForDeleteCreator final : public DeleteCreatorException{
+    const char *what() const noexcept override;
+};
 
 class IncorrectArgumentsForDeleteCreation final : public DeleteCreatorException{
     const char *what() const noexcept override;
@@ -79,3 +95,14 @@ class InvalidCreatorException final : public CommandListExecutorException{
     const char *what() const noexcept override;
 };
 
+class UndoCreatorException : public CreatorException{};
+
+class InvalidDTOForUndoCreator final : public UndoCreatorException{
+    const char *what() const noexcept override;
+};
+
+class RedoCreatorException : public CreatorException{};
+
+class InvalidDTOForRedoCreator final : public RedoCreatorException{
+    const char *what() const noexcept override;
+};

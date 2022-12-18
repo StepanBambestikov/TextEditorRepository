@@ -7,5 +7,4 @@ public:
     CreatorProvider() noexcept = default;
     virtual ~CreatorProvider() noexcept = default;
     virtual std::unique_ptr<CommandCreator> getCreator() = 0;
-    virtual bool hasNext() const = 0;
 };

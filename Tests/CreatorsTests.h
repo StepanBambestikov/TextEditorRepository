@@ -1,11 +1,11 @@
 #pragma once
 #include "gtest/gtest.h"
 #include "../TextEditorLib/Creators.h"
+#include "../TextEditorLib/EditorBuffer.h"
 #include <vector>
 
 
 TEST(InsertCreator, validData){
-    auto bufferPtr = std::make_shared<StringBuffer>();
     auto strPtr = std::make_shared<StringBuffer>("12345");
 
     auto dto = std::make_unique<CommandDTO>(Commands::INSERT);
@@ -14,14 +14,13 @@ TEST(InsertCreator, validData){
     auto creatorPtr = CommandCreator::createCreator(std::move(dto));
     auto commandObj = creatorPtr->tryCreateUserCommand();
 
-    commandObj->redo(strPtr, bufferPtr);
+    commandObj->redo(strPtr);
     ASSERT_TRUE(strPtr->getString() == "12_insert_me_345");
-    commandObj->undo(strPtr, bufferPtr);
+    commandObj->undo(strPtr);
     ASSERT_TRUE(strPtr->getString() == "12345");
 }
 
 TEST(DeleteCreator, validData){
-    auto bufferPtr = std::make_shared<StringBuffer>();
     auto strPtr = std::make_shared<StringBuffer>("12345");
 
     auto dto = std::make_unique<CommandDTO>(Commands::DELETE);
@@ -30,14 +29,13 @@ TEST(DeleteCreator, validData){
     auto creatorPtr = CommandCreator::createCreator(std::move(dto));
     auto commandObj = creatorPtr->tryCreateUserCommand();
 
-    commandObj->redo(strPtr, bufferPtr);
+    commandObj->redo(strPtr);
     ASSERT_TRUE(strPtr->getString() == "145");
-    commandObj->undo(strPtr, bufferPtr);
+    commandObj->undo(strPtr);
     ASSERT_TRUE(strPtr->getString() == "12345");
 }
 
 TEST(CopyCreator, validData){
-    auto bufferPtr = std::make_shared<StringBuffer>("44444444444");
     auto strPtr = std::make_shared<StringBuffer>("12345");
 
     auto dto = std::make_unique<CommandDTO>(Commands::COPY);
@@ -46,14 +44,15 @@ TEST(CopyCreator, validData){
     auto creatorPtr = CommandCreator::createCreator(std::move(dto));
     auto commandObj = creatorPtr->tryCreateUserCommand();
 
-    commandObj->redo(strPtr, bufferPtr);
+    commandObj->redo(strPtr);
     ASSERT_TRUE(strPtr->getString() == "12345");
-    commandObj->undo(strPtr, bufferPtr);
+    commandObj->undo(strPtr);
     ASSERT_TRUE(strPtr->getString() == "12345");
 }
 
 TEST(PasteCreator, validData){
-    auto bufferPtr = std::make_shared<StringBuffer>("_1_");
+    auto& buffer = EditorBuffer::getInstance();
+    buffer.setString(StringBuffer("_1_"));
     auto strPtr = std::make_shared<StringBuffer>("12345");
 
     auto dto = std::make_unique<CommandDTO>(Commands::PASTE);
@@ -61,14 +60,14 @@ TEST(PasteCreator, validData){
     auto creatorPtr = CommandCreator::createCreator(std::move(dto));
     auto commandObj = creatorPtr->tryCreateUserCommand();
 
-    commandObj->redo(strPtr, bufferPtr);
+    commandObj->redo(strPtr);
     ASSERT_TRUE(strPtr->getString() == "1_1_2345");
-    commandObj->undo(strPtr, bufferPtr);
+    commandObj->undo(strPtr);
     ASSERT_TRUE(strPtr->getString() == "12345");
 }
 
 TEST(UndoCreator, validData){
-    auto bufferPtr = std::make_shared<StringBuffer>();
+    auto& buffer = EditorBuffer::getInstance();
     auto strPtr = std::make_shared<StringBuffer>("12345");
 
     auto dto = std::make_unique<CommandDTO>(Commands::UNDO);
@@ -77,7 +76,7 @@ TEST(UndoCreator, validData){
 }
 
 TEST(RedoCreator, validData){
-    auto bufferPtr = std::make_shared<StringBuffer>();
+    auto& buffer = EditorBuffer::getInstance();
     auto strPtr = std::make_shared<StringBuffer>("12345");
 
     auto dto = std::make_unique<CommandDTO>(Commands::REDO);
@@ -87,7 +86,7 @@ TEST(RedoCreator, validData){
 }
 
 TEST(CopyAndPasteCreators, validData){
-    auto bufferPtr = std::make_shared<StringBuffer>();
+    auto& buffer = EditorBuffer::getInstance();
     auto strPtr = std::make_shared<StringBuffer>("12345");
     auto copyDto = std::make_unique<CommandDTO>(Commands::COPY);
     copyDto->setIdx1(1);
@@ -98,11 +97,11 @@ TEST(CopyAndPasteCreators, validData){
     auto pastePtr = CommandCreator::createCreator(std::move(pasteDto));
     auto copyObjPtr = copyPtr->tryCreateUserCommand();
     auto pasteObjPtr = pastePtr->tryCreateUserCommand();
-    copyObjPtr->redo(strPtr, bufferPtr);
+    copyObjPtr->redo(strPtr);
     ASSERT_TRUE(strPtr->getString() == "12345");
-    ASSERT_TRUE(bufferPtr->getString() == "23");
-    pasteObjPtr->redo(strPtr, bufferPtr);
+    ASSERT_TRUE(buffer.getString().getString() == "23");
+    pasteObjPtr->redo(strPtr);
     ASSERT_TRUE(strPtr->getString() == "1223345");
-    pasteObjPtr->undo(strPtr, bufferPtr);
+    pasteObjPtr->undo(strPtr);
     ASSERT_TRUE(strPtr->getString() == "12345");
 }

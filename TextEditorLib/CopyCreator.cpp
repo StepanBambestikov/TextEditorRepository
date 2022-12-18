@@ -1,12 +1,16 @@
 #include "CopyCreator.h"
 
-CopyCreator::CopyCreator(CommandDTO dto) noexcept : DTO(std::move(dto)) {};
+CopyCreator::CopyCreator(const CommandDTO& dto) {
+    if (dto.getCommandName() != Commands::COPY || !dto.getIdx1() || !dto.getIdx2()){
+        throw InvalidDTOForCopyCreator();
+    }
+    idx1 = *dto.getIdx1();
+    idx2 = *dto.getIdx2();
+}
+
 
 std::unique_ptr<UserCommand> CopyCreator::tryCreateUserCommand() const noexcept{
-    if (!DTO.getIdx1() || !DTO.getIdx2()){
-        return {};
-    }
-    return std::make_unique<Copy>(*DTO.getIdx1(), *DTO.getIdx2());
+    return std::make_unique<Copy>(idx1, idx2);
 }
 
 std::unique_ptr<ServiceCommand> CopyCreator::tryCreateServiceCommand() const noexcept{

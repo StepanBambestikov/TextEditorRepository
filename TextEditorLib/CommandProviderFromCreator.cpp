@@ -1,12 +1,7 @@
 #include "CommandProviderFromCreator.h"
 
 void CommandProviderFromCreator::nextCreatorUpdate() noexcept {
-    if (provider->hasNext()){
-        nextCreatorPtr = provider->getCreator();
-    }
-    else{
-        nextCreatorPtr = {};
-    }
+    nextCreatorPtr = provider->getCreator();
 }
 
 CommandProviderFromCreator::CommandProviderFromCreator(std::unique_ptr<CreatorProvider> _provider) noexcept : provider(std::move(_provider)) {
@@ -15,6 +10,9 @@ CommandProviderFromCreator::CommandProviderFromCreator(std::unique_ptr<CreatorPr
 
 
 std::unique_ptr<UserCommand> CommandProviderFromCreator::tryGetUserCommand() noexcept {
+    if (!nextCreatorPtr){
+        return {};
+    }
     auto commandPtr = nextCreatorPtr->tryCreateUserCommand();
     if (commandPtr){
         nextCreatorUpdate();
@@ -24,14 +22,13 @@ std::unique_ptr<UserCommand> CommandProviderFromCreator::tryGetUserCommand() noe
 }
 
 std::unique_ptr<ServiceCommand> CommandProviderFromCreator::tryGetServiceCommand() noexcept {
+    if (!nextCreatorPtr){
+        return {};
+    }
     auto commandPtr = nextCreatorPtr->tryCreateServiceCommand();
     if (commandPtr){
         nextCreatorUpdate();
         return commandPtr;
     }
     return {};
-}
-
-bool CommandProviderFromCreator::hasNext() const noexcept {
-    return nextCreatorPtr || provider->hasNext();
 }

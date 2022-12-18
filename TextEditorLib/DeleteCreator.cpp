@@ -1,12 +1,15 @@
 #include "DeleteCreator.h"
 
-DeleteCreator::DeleteCreator(CommandDTO dto) noexcept : DTO(std::move(dto)) {}
+DeleteCreator::DeleteCreator(const CommandDTO& dto) {
+    if (dto.getCommandName() != Commands::DELETE || !dto.getIdx1() || !dto.getIdx2()){
+        throw InvalidDTOForDeleteCreator();
+    }
+    idx1 = *dto.getIdx1();
+    idx2 = *dto.getIdx2();
+}
 
 std::unique_ptr<UserCommand> DeleteCreator::tryCreateUserCommand() const noexcept{
-    if (!DTO.getIdx1() || !DTO.getIdx2()){
-        return {};
-    }
-    return std::make_unique<Delete>(*DTO.getIdx1(), *DTO.getIdx2());
+    return std::make_unique<Delete>(idx1, idx2);
 }
 
 std::unique_ptr<ServiceCommand> DeleteCreator::tryCreateServiceCommand() const noexcept{

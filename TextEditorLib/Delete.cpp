@@ -5,12 +5,12 @@ Delete::Delete(size_t _begin, size_t _end) noexcept {
     end = _end;
 }
 
-void Delete::redo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) noexcept{
+void Delete::redo(std::shared_ptr<StringBuffer> str) {
     deletedStr = str->getSubStringInRange(begin, end);
     str->deleteStringInRange(begin, end);
 }
 
-void Delete::undo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) noexcept{
+void Delete::undo(std::shared_ptr<StringBuffer> str) {
     if (!deletedStr.size()){
         return;
     }

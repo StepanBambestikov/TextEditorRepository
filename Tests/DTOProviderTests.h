@@ -3,7 +3,7 @@
 #include "../TextEditorLib/DTOProviderFromParser.h"
 
 TEST(DTOProvider, AverageStream){
-    InputStream stream(std::make_unique<std::stringstream>("insert _insert_me_ 2\nundo\n   delete 1 2 \n paste 1\n copy 1 2\nerror\n"));
+    std::stringstream stream{"insert _insert_me_ 2\nundo\n   delete 1 2 \n paste 1\n copy 1 2\nerror\n"};
     auto provider = DTOProviderFromParser(std::make_unique<Parser>(stream));
     auto ptr = provider.getDTO();
 

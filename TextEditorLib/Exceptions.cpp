@@ -41,7 +41,7 @@ const char*IncorrectArgumentsForDeleteCreation::what() const noexcept {
 }
 
 const char*NullPtrCommandException::what() const noexcept {
-    return "Command ptr in StringEditor::addAndExecuteCommand(std::unique_ptr<CommandInterface>) must be valid";
+    return "Command ptr in StringEditor::tryAddAndExecuteCommand(std::unique_ptr<CommandInterface>) must be valid";
 }
 
 const char*UndoEditorException::what() const noexcept {
@@ -54,5 +54,29 @@ const char*RedoEditorException::what() const noexcept {
 
 const char*InvalidCreatorException::what() const noexcept {
     return "invalid creator provided in CommandListExecutor::runAllAndGetString()";
+}
+/**/
+const char*InvalidDTOForCopyCreator::what() const noexcept {
+    return "Invalid DTO in CopyCreator::CopyCreator(CommandDTO dto)";
+}
+
+const char*InvalidDTOForPasteCreator::what() const noexcept {
+    return "Invalid DTO in PasteCreator::PasteCreator(CommandDTO dto)";
+}
+
+const char*InvalidDTOForInsertCreator::what() const noexcept {
+    return "Invalid DTO in InsertCreator::InsertCreator(CommandDTO dto)";
+}
+
+const char*InvalidDTOForDeleteCreator::what() const noexcept {
+    return "Invalid DTO in DeleteCreator::DeleteCreator(CommandDTO dto)";
+}
+
+const char*InvalidDTOForUndoCreator::what() const noexcept {
+    return "Invalid DTO in UndoCreator::UndoCreator(CommandDTO dto)";
+}
+
+const char*InvalidDTOForRedoCreator::what() const noexcept {
+    return "Invalid DTO in RedoCreator::RedoCreator(CommandDTO dto)";
 }
 

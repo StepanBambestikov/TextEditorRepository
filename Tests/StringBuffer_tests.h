@@ -11,7 +11,6 @@ TEST(StringBuffer, AverageGetStringInRange){
     auto buf = StringBuffer(str);
     auto subStr = buf.getSubStringInRange(1, 4);
     ASSERT_TRUE(subStr.getString() == "234");
-    EXPECT_THROW(buf.getSubStringInRange(1, 20), IncorrectArgumentsGetStringInRange);
     EXPECT_NO_THROW(buf.getSubStringInRange(3, 3));
     ASSERT_TRUE(buf.getSubStringInRange(3, 3).getString() == "");
 }
@@ -27,7 +26,6 @@ TEST(StringBuffer, GetStringInRangeVoidString){
 TEST(StringBuffer, GetStringInRangeAllRanges){
     std::string str = "12345";
     auto buf = StringBuffer(str);
-    EXPECT_THROW(auto subStr = buf.getSubStringInRange(0, 6), IncorrectArgumentsGetStringInRange);
     auto subStr = buf.getSubStringInRange(0, 5);
     ASSERT_TRUE(subStr.getString() == "12345");
     subStr = buf.getSubStringInRange(0, 4);
@@ -88,13 +86,11 @@ TEST(StringBuffer, AverageDeleteStringInRange){
     auto buf = StringBuffer(str);
     buf.deleteStringInRange(1, 4);
     ASSERT_TRUE(buf.getString() == "1567890");
-    EXPECT_THROW(buf.deleteStringInRange(1, 20), IncorrectArgumentsdeleteStringInRange);
 }
 
 TEST(StringBuffer, DeleteStringInRangeSomeRanges){
     std::string str = "123";
     auto buf = StringBuffer(str);
-    EXPECT_THROW(buf.deleteStringInRange(0, 4), IncorrectArgumentsdeleteStringInRange);
     buf.deleteStringInRange(0, 3);
     ASSERT_TRUE(buf.getString() == "");
     buf = StringBuffer(str);

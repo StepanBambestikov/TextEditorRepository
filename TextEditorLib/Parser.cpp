@@ -1,13 +1,13 @@
 #include "Parser.h"
 
 namespace {
-    std::unique_ptr<CommandDTO> parseStreamToCopyDTO(InputStream& stream){
+    std::unique_ptr<CommandDTO> parseStreamToCopyDTO(std::istream& stream){
         int idx1 = 0;
         int idx2 = 0;
-        if (!(*stream.is >> idx1)){
+        if (!(stream >> idx1)){
             return {};
         }
-        if (!(*stream.is >> idx2)){
+        if (!(stream >> idx2)){
             return {};
         }
         auto DTOptr = std::make_unique<CommandDTO>(Commands::COPY);
@@ -16,9 +16,9 @@ namespace {
         return DTOptr;
     }
 
-    std::unique_ptr<CommandDTO> parseStreamToPasteDTO(InputStream& stream){
+    std::unique_ptr<CommandDTO> parseStreamToPasteDTO(std::istream& stream){
         int idx = 0;
-        if (!(*stream.is >> idx)){
+        if (!(stream >> idx)){
             return {};
         }
         auto DTOptr = std::make_unique<CommandDTO>(Commands::PASTE);
@@ -26,14 +26,14 @@ namespace {
         return DTOptr;
     }
 
-    std::unique_ptr<CommandDTO> parseStreamToInsertDTO(InputStream& stream){
+    std::unique_ptr<CommandDTO> parseStreamToInsertDTO(std::istream& stream){
         std::string word;
         int idx = 0;
-        *stream.is >> word;
+        stream >> word;
         if (word.empty()){
             return {};
         }
-        if (!(*stream.is >> idx)){
+        if (!(stream >> idx)){
             return {};
         }
         auto DTOptr = std::make_unique<CommandDTO>(Commands::INSERT);
@@ -42,13 +42,13 @@ namespace {
         return DTOptr;
     }
 
-    std::unique_ptr<CommandDTO> parseStreamToDeleteDTO(InputStream& stream){
+    std::unique_ptr<CommandDTO> parseStreamToDeleteDTO(std::istream& stream){
         int idx1 = 0;
         int idx2 = 0;
-        if (!(*stream.is >> idx1)){
+        if (!(stream >> idx1)){
             return {};
         }
-        if (!(*stream.is >> idx2)){
+        if (!(stream >> idx2)){
             return {};
         }
         auto DTOptr = std::make_unique<CommandDTO>(Commands::DELETE);
@@ -57,20 +57,24 @@ namespace {
         return DTOptr;
     }
 
-    std::unique_ptr<CommandDTO> parseStreamToUndoDTO(InputStream& stream){
+    std::unique_ptr<CommandDTO> parseStreamToUndoDTO(std::istream& stream){
         return std::make_unique<CommandDTO>(Commands::UNDO);
     }
 
-    std::unique_ptr<CommandDTO> parseStreamToRedoDTO(InputStream& stream){
+    std::unique_ptr<CommandDTO> parseStreamToRedoDTO(std::istream& stream){
         return std::make_unique<CommandDTO>(Commands::REDO);
     }
 }
 
 std::unique_ptr<CommandDTO> Parser::parseStringToDTO(){
-    auto strStream = getStringStream();
+    std::string str;
+    std::getline(is, str);
+    if (str.empty()){
+        return {};
+    }
+    auto strStream = std::stringstream(str);
     std::string nameOfType;
-    *strStream.is >> nameOfType;
-    //tryUndo, tryRedo
+    strStream >> nameOfType;
     if (nameOfType == commandNamesMap[Commands::REDO]){
         return parseStreamToRedoDTO(strStream);
     }
@@ -94,7 +98,17 @@ std::unique_ptr<CommandDTO> Parser::parseStringToDTO(){
     }
 }
 
-std::unordered_map<Commands, std::string> Parser::createCommandNamesMap(){
+std::unique_ptr<CommandDTO> Parser::parseWhileNotDTO(){
+    while (!is.eof()){
+        auto ptr = parseStringToDTO();
+        if (ptr){
+            return ptr;
+        }
+    }
+    return {};
+}
+
+std::unordered_map<Commands, std::string> Parser::createCommandNamesMap() noexcept{
     std::unordered_map<Commands, std::string> _commandNamesMap;
     _commandNamesMap[Commands::REDO] = "redo";
     _commandNamesMap[Commands::UNDO] = "undo";
@@ -105,16 +119,6 @@ std::unordered_map<Commands, std::string> Parser::createCommandNamesMap(){
     return _commandNamesMap;
 }
 
-Parser::Parser(InputStream& _is) noexcept : is(_is) {}
+Parser::Parser(std::istream& _is) noexcept : is(_is) {}
 
 std::unordered_map<Commands, std::string> Parser::commandNamesMap = createCommandNamesMap();
-
-bool Parser::eof() const noexcept{
-    return is.is->eof();
-}
-
-InputStream Parser::getStringStream() noexcept{
-    std::string str;
-    std::getline(*is.is, str);
-    return {std::make_unique<std::stringstream>(str)};
-}

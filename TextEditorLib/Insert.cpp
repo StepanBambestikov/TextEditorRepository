@@ -6,15 +6,15 @@ Insert::Insert(StringBuffer _strForInsert, size_t _position) noexcept {
     position = _position;
 }
 
-void Insert::redo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) noexcept{
+void Insert::redo(std::shared_ptr<StringBuffer> str){
     str->pasteInPosition(position, strForInsert);
-    positionOfInserted = static_cast<int>(position);
+    insertHappened = true;
 }
 
-void Insert::undo(std::shared_ptr<StringBuffer> str,std::shared_ptr<StringBuffer> _buffer) noexcept{
-    if (positionOfInserted == -1){
+void Insert::undo(std::shared_ptr<StringBuffer> str){
+    if (!insertHappened){
         return;
     }
-    str->deleteStringInRange(positionOfInserted, positionOfInserted + strForInsert.size());
-    positionOfInserted = -1;
+    str->deleteStringInRange(position, position + strForInsert.size());
+    insertHappened = false;
 }

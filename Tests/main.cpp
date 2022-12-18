@@ -1,5 +1,4 @@
 #include "StringBuffer_tests.h"
-#include "InputStreamTests.h"
 
 #include "ParserTests.h"
 

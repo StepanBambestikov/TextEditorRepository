@@ -1,6 +1,10 @@
 #include "UndoCreator.h"
 
-UndoCreator::UndoCreator(CommandDTO dto) noexcept {}
+UndoCreator::UndoCreator(const CommandDTO& dto) {
+    if (dto.getCommandName() != Commands::UNDO){
+        throw InvalidDTOForUndoCreator();
+    }
+}
 
 std::unique_ptr<UserCommand> UndoCreator::tryCreateUserCommand() const noexcept{
     return {};
